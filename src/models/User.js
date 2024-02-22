@@ -13,6 +13,13 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

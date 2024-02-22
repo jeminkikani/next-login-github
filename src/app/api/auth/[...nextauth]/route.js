@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import { Account } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/models/User";
@@ -38,6 +39,10 @@ const authOptions = {
       clientId: process.env.GITHUB_ID || "",
       clientSecret: process.env.GITHUB_SECRET || "",
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
   callbacks: {
     async signIn({ user, account }) {
@@ -52,12 +57,14 @@ const authOptions = {
             const newUser = new User({
               email: user.email,
               Name: user.Name,
-              ProfileURL: user.ProfileURL
+              ProfileURL: user.ProfileURL,
             });
 
             await newUser.save();
             return true;
           }
+          
+
           return true;
         } catch (err) {
           console.log("Error saving user", err);

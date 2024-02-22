@@ -32,7 +32,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    signOut();
+                    signOut({ redirect: true, callbackUrl: "/login" });
                   }}
                   className="p-2 px-5 -mt-1 bg-blue-800 rounded-full"
                 >
